@@ -5,12 +5,12 @@ export function throwCorrectException(error: AxiosError): void {
 
   switch (status) {
     case 400:
-      throw new Error("...");
+      throw new Error("400");
     case 404:
-      throw new Error("...");
+      throw new Error("404");
     case 500:
-      throw new Error("...");
+      throw new Error("500");
     default:
-      throw new Error("...");
+      throw new Error("default");
   };
 };
