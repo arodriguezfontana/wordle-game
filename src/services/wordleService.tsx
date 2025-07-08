@@ -6,7 +6,7 @@ import { throwCorrectException } from "./errorHandler";
 
 const BASE_URL = "https://word-api-hmlg.vercel.app/api";
 
-export const getDifficulties = async (): Promise<Difficulty[] | undefined> => {
+export const getDifficulties = async (): Promise<Difficulty[]> => {
     try {
         const res = await axios.get(`${BASE_URL}/difficulties`);
         return res.data;
@@ -14,11 +14,11 @@ export const getDifficulties = async (): Promise<Difficulty[] | undefined> => {
         if (err instanceof AxiosError) {
             throwCorrectException(err);
         }
-        return undefined;
+        throw new Error("Error desconocido al obtener dificultades.");
     }
 };
 
-export const getSession = async (difficultyId: string): Promise<GameSession | undefined> => {
+export const getSession = async (difficultyId: string): Promise<GameSession> => {
     try {
         const res = await axios.get(`${BASE_URL}/difficulties/${difficultyId}`);
         return res.data;
@@ -26,11 +26,11 @@ export const getSession = async (difficultyId: string): Promise<GameSession | un
         if (err instanceof AxiosError) {
             throwCorrectException(err);
         }
-        return undefined;
+        throw new Error("Error desconocido al iniciar partida.");
     }
 };
 
-export const checkWord = async (sessionId: string, word: string): Promise<LetterResult[] | undefined> => {
+export const checkWord = async (sessionId: string, word: string): Promise<LetterResult[]> => {
     try {
         const res = await axios.post(`${BASE_URL}/checkWord`, {
             sessionId,
@@ -41,6 +41,6 @@ export const checkWord = async (sessionId: string, word: string): Promise<Letter
         if (err instanceof AxiosError) {
             throwCorrectException(err);
         }
-        return undefined;
+        throw new Error("Error desconocido al validar palabra.");
     }
 };

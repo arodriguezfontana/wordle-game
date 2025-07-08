@@ -8,7 +8,7 @@ type DifficultySelectorProperties = {
 const DifficultySelector = ({ difficulties, onSelect }: DifficultySelectorProperties) => {
     return (
         <div>
-            <h2>Seleccioná la dificultad</h2>
+            <h3>Select the difficulty</h3>
             <ul>
                 {difficulties.map((d) => (
                     <button key={d.id} onClick={() => onSelect(d)}>
