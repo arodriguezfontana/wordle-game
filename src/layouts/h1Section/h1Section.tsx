@@ -1,19 +1,20 @@
 import React from "react";
-import "./wordleSection.css";
+import "./h1Section.css";
 
-interface WordleSectionProperties {
+interface H1SectionProperties {
     children: React.ReactNode;
+    title: string;
 }
 
-const WordleSection = ({ children } : WordleSectionProperties ) => {
+const H1Section = ({ children, title } : H1SectionProperties ) => {
   return (
       <div className="wordle-section-container">
         <article>
-          <h1>Wordle</h1>
+          <h1>{title}</h1>
           {children}
         </article>
       </div>
   );
 };
 
-export default WordleSection;
+export default H1Section;

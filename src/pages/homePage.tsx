@@ -7,7 +7,7 @@ import Game from "../components/game/game";
 import type { Difficulty } from "../types/difficulty";
 import type { GameSession } from "../types/gameSession";
 import type { Stage } from "../types/stage";
-import WordleSection from "../layouts/wordleSection";
+import H1Section from "../layouts/h1Section/h1Section";
 import { throwCorrectError } from "../services/throwCorrectError";
 
 const HomePage = () => {
@@ -54,7 +54,7 @@ const HomePage = () => {
     
     return (
         <div>
-            <WordleSection>
+            <H1Section title="Wordle">
 
                 {stage === "start" && (
                         <Start
@@ -76,7 +76,7 @@ const HomePage = () => {
                         />
                 )}
                 
-            </WordleSection>
+            </H1Section>
         </div>
     );
 };
