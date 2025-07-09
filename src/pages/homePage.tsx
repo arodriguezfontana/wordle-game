@@ -8,6 +8,7 @@ import Game from "../components/game/game";
 import type { Difficulty } from "../types/difficulty";
 import type { GameSession } from "../types/gameSession";
 import type { Stage } from "../types/stage";
+import WordleSection from "../layouts/wordleSection";
 
 const HomePage = () => {
     const [stage, setStage] = useState<Stage>("start");
@@ -49,36 +50,36 @@ const HomePage = () => {
 
     return (
         <div>
-            <h1>WORDLE</h1>
+            <WordleSection>
 
-            {stage === "start" && (
-                <section>
-                    <Start
-                        onClick={handleStartClick}
-                    />
-                </section>
-            )}
+                {stage === "start" && (
+                    <section>
+                        <Start
+                            onClick={handleStartClick}
+                        />
+                    </section>
+                )}
 
-            {stage === "difficulty" && (
-                <section>
-                    <DifficultySelector
-                        difficulties={difficulties}
-                        onSelect={handleDifficultySelect}
-                    />
-                </section>
-            )}
+                {stage === "difficulty" && (
+                    <section>
+                        <DifficultySelector
+                            difficulties={difficulties}
+                            onSelect={handleDifficultySelect}
+                        />
+                    </section>
+                )}
 
-            {stage === "game" && gameSession && (
-                <section>
-                    <Game
-                        gameSession={gameSession}
-                    />
-                </section>
-            )}
-
+                {stage === "game" && gameSession && (
+                    <section>
+                        <Game
+                            gameSession={gameSession}
+                        />
+                    </section>
+                )}
+                
+            </WordleSection>
         </div>
     );
-
 };
 
 export default HomePage;

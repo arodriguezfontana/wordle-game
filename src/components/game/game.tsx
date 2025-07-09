@@ -4,7 +4,7 @@ import type { GameSession } from "../../types/gameSession";
 import type { LetterResult } from "../../types/letterResult";
 import type { GameStatus } from "../../types/gameStatus";
 
-type GameProperties = {
+interface GameProperties {
     gameSession: GameSession;
 };
 

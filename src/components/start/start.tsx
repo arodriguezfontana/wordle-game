@@ -1,4 +1,4 @@
-type StartProperties = {
+interface StartProperties {
     onClick: () => void;
 };
 
