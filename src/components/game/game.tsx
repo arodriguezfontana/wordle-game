@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { checkWord } from "../../services/wordleService";
+import { postCheckWord } from "../../services/wordleService";
 import type { GameSession } from "../../types/gameSession";
 import type { LetterResult } from "../../types/letterResult";
 import type { GameStatus } from "../../types/gameStatus";
@@ -16,7 +16,7 @@ const Game = ({ gameSession }: GameProperties) => {
     const handlePlay = async () => {
         if (word.length !== gameSession.wordLenght || status !== "playing") return;
 
-        const result = await checkWord(gameSession.sessionId, word.trim().toLowerCase());
+        const result = await postCheckWord(gameSession.sessionId, word.trim().toLowerCase());
         if (!result) return;
 
         setAttempts([...attempts, result]);
@@ -60,7 +60,7 @@ const Game = ({ gameSession }: GameProperties) => {
                 <div>
                     <input
                         value={word}
-                        onChange={(e) => setWord(e.target.value.toUpperCase())}
+                        onChange={(e) => setWord(e.target.value)}
                         maxLength={gameSession.wordLenght}
                     />
                     <button onClick={handlePlay}>Enviar</button>

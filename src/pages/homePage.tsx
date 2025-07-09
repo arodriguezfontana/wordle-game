@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getDifficulties, getSession } from "../services/wordleService";
 import { isAxiosError } from "axios";
-import { throwCorrectException } from "../services/errorHandler";
 import DifficultySelector from "../components/difficultySelector/difficultySelector";
 import Start from "../components/start/start";
 import Game from "../components/game/game";
@@ -9,6 +8,7 @@ import type { Difficulty } from "../types/difficulty";
 import type { GameSession } from "../types/gameSession";
 import type { Stage } from "../types/stage";
 import WordleSection from "../layouts/wordleSection";
+import { throwCorrectError } from "../services/throwCorrectError";
 
 const HomePage = () => {
     const [stage, setStage] = useState<Stage>("start");
@@ -19,9 +19,9 @@ const HomePage = () => {
         try {
             const data = await getDifficulties();
             setDifficulties(data);
-        } catch (error) {
-            if (isAxiosError(error)) {
-                throwCorrectException(error);
+        } catch (err) {
+            if (isAxiosError(err)) {
+                throwCorrectError(err, "getDifficulties");
             }
         }
     };
@@ -41,9 +41,9 @@ const HomePage = () => {
             const session = await getSession(difficulty.id);
             setGameSession(session);
             setStage("game");
-        } catch (error) {
-            if (isAxiosError(error)) {
-                throwCorrectException(error);
+        } catch (err) {
+            if (isAxiosError(err)) {
+                throwCorrectError(err, "getSession");
             }
         }
     };
