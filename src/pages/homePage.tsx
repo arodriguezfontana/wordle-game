@@ -32,11 +32,7 @@ const HomePage = () => {
         }
     }, [stage]);
 
-    const handleStartClick = () => {
-        setStage("difficulty");
-    };
-
-    const handleDifficultySelect = async (difficulty: Difficulty) => {
+    const handleDifficultySelection = async (difficulty: Difficulty) => {
         try {
             const session = await getSession(difficulty.id);
             setGameSession(session);
@@ -47,34 +43,37 @@ const HomePage = () => {
             }
         }
     };
+    
+    const handleStartClick = () => {
+        setStage("difficulty");
+    };
 
+    const handleRulesClick = () => {
+        setStage("difficulty");
+    };
+    
     return (
         <div>
             <WordleSection>
 
                 {stage === "start" && (
-                    <section>
                         <Start
-                            onClick={handleStartClick}
+                            onClickStart={handleStartClick}
+                            onClickRules={handleRulesClick}
                         />
-                    </section>
                 )}
 
                 {stage === "difficulty" && (
-                    <section>
                         <DifficultySelector
                             difficulties={difficulties}
-                            onSelect={handleDifficultySelect}
+                            onSelect={handleDifficultySelection}
                         />
-                    </section>
                 )}
 
                 {stage === "game" && gameSession && (
-                    <section>
                         <Game
                             gameSession={gameSession}
                         />
-                    </section>
                 )}
                 
             </WordleSection>

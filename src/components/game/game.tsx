@@ -1,8 +1,12 @@
 import { useState } from "react";
+import { isAxiosError } from "axios";
+import { throwCorrectError } from "../../services/throwCorrectError";
 import { postCheckWord } from "../../services/wordleService";
 import type { GameSession } from "../../types/gameSession";
 import type { LetterResult } from "../../types/letterResult";
 import type { GameStatus } from "../../types/gameStatus";
+import toast from "react-hot-toast";
+import { InvalidWordError } from "../../services/wordleErrors";
 
 interface GameProperties {
     gameSession: GameSession;
@@ -16,21 +20,29 @@ const Game = ({ gameSession }: GameProperties) => {
     const handlePlay = async () => {
         if (word.length !== gameSession.wordLenght || status !== "playing") return;
 
-        const result = await postCheckWord(gameSession.sessionId, word.trim().toLowerCase());
-        if (!result) return;
+        try {
+            const result = await postCheckWord(gameSession.sessionId, word.toLowerCase());
 
-        setAttempts([...attempts, result]);
-        setWord("");
+            if (!result) return;
 
-        const won = result.every((letter) => letter.solution === "correct");
+            setAttempts([...attempts, result]);
+            setWord("");
 
-        if (won) {
-            setStatus("won");
-        } else if (attempts.length + 1 >= 6) {
-            setStatus("lost");
-        }
-    };
-
+            const won = result.every((letter) => letter.solution === "correct");
+            if (won) {
+                setStatus("won");
+            } else if (attempts.length + 1 >= 6) {
+                setStatus("lost");
+            }
+        } catch (err) {
+            if (err instanceof InvalidWordError) {
+                toast.error("La palabra no es valida")
+            } else if (isAxiosError(err)) {
+                throwCorrectError(err, "postCheckWord");
+            }
+        };
+    }
+    
     const remainingAttempts = 6 - attempts.length;
 
     return (

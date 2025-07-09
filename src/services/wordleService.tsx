@@ -5,7 +5,7 @@ import type { GameSession } from "../types/gameSession";
 import { UnknownError } from "./wordleErrors";
 import { throwCorrectError } from "./throwCorrectError";
 
-const BASE_URL = "https://word-api-hmlg.vercel.app/api";
+const BASE_URL = "/api";
 
 export const getDifficulties = async (): Promise<Difficulty[]> => {
   try {
