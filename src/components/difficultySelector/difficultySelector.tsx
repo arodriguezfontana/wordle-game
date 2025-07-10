@@ -1,4 +1,5 @@
 import Loading from "../loading/loading";
+import Button from "../button/button";
 import type { Difficulty } from "../../types/difficulty";
 
 interface DifficultySelectorProperties {
@@ -18,12 +19,20 @@ const DifficultySelector = ({ difficulties, onSelect, loading }: DifficultySelec
 
             {!loading && (
                 <ul>
-                    {difficulties.map((d) => (
-                        <button key={d.id} onClick={() => onSelect(d)}>
-                            {d.name}
-                        </button>
-                    ))}
+                    {difficulties.map((d, i) => {
+                        const colors = ["green", "yellow", "orange", "red"];
+                        const color = colors[i] || "gray";
+
+                        return (
+                            <li key={d.id}>
+                                <Button onClick={() => onSelect(d)} color={color}>
+                                    {d.name}
+                                </Button>
+                            </li>
+                        );
+                    })}
                 </ul>
+
             )}
         </div>
     );

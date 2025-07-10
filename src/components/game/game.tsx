@@ -1,6 +1,7 @@
 import { useGame } from "../../hooks/useGame";
 import Won from "../resultOvelay/won";
 import Lost from "../resultOvelay/lost";
+import Loading from "../loading/loading";
 import type { GameSession } from "../../types/gameSession";
 
 interface GameProperties {
@@ -15,6 +16,7 @@ const Game = ({ gameSession, onRestartToHome }: GameProperties) => {
         attempts,
         status,
         showOverlay,
+        loading,
         handlePlay,
         handleRestart,
         closeOverlay,
@@ -29,18 +31,31 @@ const Game = ({ gameSession, onRestartToHome }: GameProperties) => {
             {attempts.map((a, i) => (
                 <div key={i} style={{ display: "flex", gap: 4 }}>
                     {a.map((l, i2) => (
-                        <span key={i2} style={{
-                            backgroundColor:
-                                l.solution === "correct" ? "green"
-                                    : l.solution === "elsewhere" ? "gold"
-                                        : "lightgray", color: "white"
-                        }}>
+                        <span
+                            key={i2}
+                            style={{
+                                backgroundColor:
+                                    l.solution === "correct"
+                                        ? "green"
+                                        : l.solution === "elsewhere"
+                                            ? "gold"
+                                            : "lightgray",
+                                color: "white",
+                                padding: "4px 8px",
+                                borderRadius: "4px",
+                            }}
+                        >
                             {l.letter}
                         </span>
-                    ))
-                    }
+                    ))}
                 </div>
             ))}
+
+            {loading && (
+                <div style={{ marginTop: "16px" }}>
+                    <Loading />
+                </div>
+            )}
 
             {status === "playing" && (
                 <div>

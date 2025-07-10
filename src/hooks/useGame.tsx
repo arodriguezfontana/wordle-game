@@ -13,12 +13,14 @@ export const useGame = (gameSession: GameSession, onRestartToHome: () => void) =
     const [attempts, setAttempts] = useState<LetterResult[][]>([]);
     const [status, setStatus] = useState<GameStatus>("playing");
     const [showOverlay, setShowOverlay] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const handlePlay = async () => {
         const validWordLenght = word.length === gameSession.wordLenght;
         const gameInProgress = status === "playing";
 
         if (!validWordLenght || !gameInProgress) return;
+        setLoading(true);
 
         try {
             const result = await postCheckWord(gameSession.sessionId, word.toLowerCase());
@@ -42,8 +44,10 @@ export const useGame = (gameSession: GameSession, onRestartToHome: () => void) =
             } else if (isAxiosError(err)) {
                 throwCorrectError(err, "postCheckWord");
             }
+        } finally {
+            setLoading(false);
         };
-    }
+    };
 
     const handleRestart = () => {
         setShowOverlay(false);
@@ -53,6 +57,7 @@ export const useGame = (gameSession: GameSession, onRestartToHome: () => void) =
     const closeOverlay = () => setShowOverlay(false);
     
     return {
+        loading,
         word,
         setWord,
         attempts,

@@ -1,3 +1,5 @@
+import Button from "../button/button";
+
 interface StartProperties {
     onClickStart: () => void;
     onClickRules: () => void;
@@ -6,8 +8,8 @@ interface StartProperties {
 const Start = ({ onClickStart, onClickRules }: StartProperties) => {
     return (
         <div>
-            <button onClick={onClickRules}>Reglas del juego</button>
-            <button onClick={onClickStart}>Empezar a jugar</button>
+            <Button onClick={onClickRules} color={"red"}>Reglas del juego</Button>
+            <Button onClick={onClickStart} color={"green"}>Empezar a jugar</Button>
         </div>
     );
 };
