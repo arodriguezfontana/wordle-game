@@ -10,6 +10,7 @@ export const useHome = () => {
     const [stage, setStage] = useState<Stage>("start");
     const [difficulties, setDifficulties] = useState<Difficulty[]>([]);
     const [gameSession, setGameSession] = useState<GameSession | null>(null);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (stage === "difficulty") {
@@ -18,6 +19,7 @@ export const useHome = () => {
     }, [stage]);
 
     const fetchDifficulties = async () => {
+        setLoading(true);
         try {
             const data = await getDifficulties();
             setDifficulties(data);
@@ -25,7 +27,9 @@ export const useHome = () => {
             if (isAxiosError(err)) {
                 throwCorrectError(err, "getDifficulties");
             }
-        }
+        } finally {
+            setLoading(false);
+        };
     };
 
     const goToStart = () => setStage("start");
@@ -47,6 +51,7 @@ export const useHome = () => {
         stage,
         difficulties,
         gameSession,
+        loading,
         handleDifficultySelection,
         goToStart,
         goToDifficulty

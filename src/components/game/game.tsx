@@ -1,6 +1,6 @@
 import { useGame } from "../../hooks/useGame";
-import WonPage from "../resultPage/wonPage";
-import LostPage from "../resultPage/lostPage";
+import Won from "../resultOvelay/won";
+import Lost from "../resultOvelay/lost";
 import type { GameSession } from "../../types/gameSession";
 
 interface GameProperties {
@@ -54,10 +54,10 @@ const Game = ({ gameSession, onRestartToHome }: GameProperties) => {
             )}
 
             {showOverlay && status === "won" && (
-                <WonPage onClose={closeOverlay} onRestart={handleRestart} />
+                <Won onClose={closeOverlay} onRestart={handleRestart} />
             )}
             {showOverlay && status === "lost" && (
-                <LostPage onClose={closeOverlay} onRestart={handleRestart} />
+                <Lost onClose={closeOverlay} onRestart={handleRestart} />
             )}
         </div>
     );

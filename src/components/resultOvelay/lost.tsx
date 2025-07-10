@@ -1,11 +1,11 @@
 import "./overlay.css";
 
-interface LostPageProps {
+interface LostProps {
     onClose: () => void;
     onRestart: () => void;
 }
 
-const LostPage = ({ onClose, onRestart }: LostPageProps) => {
+const Lost = ({ onClose, onRestart }: LostProps) => {
     return (
         <div className="overlay">
             <div className="modal">
@@ -17,4 +17,4 @@ const LostPage = ({ onClose, onRestart }: LostPageProps) => {
     );
 };
 
-export default LostPage;
+export default Lost;

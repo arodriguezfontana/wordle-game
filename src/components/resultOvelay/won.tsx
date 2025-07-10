@@ -1,11 +1,11 @@
 import "./overlay.css";
 
-interface WonPageProps {
+interface WonProps {
     onClose: () => void;
     onRestart: () => void;
 }
 
-const WonPage = ({ onClose, onRestart }: WonPageProps) => {
+const Won = ({ onClose, onRestart }: WonProps) => {
     return (
         <div className="overlay">
             <div className="modal">
@@ -17,4 +17,4 @@ const WonPage = ({ onClose, onRestart }: WonPageProps) => {
     );
 };
 
-export default WonPage;
+export default Won;
