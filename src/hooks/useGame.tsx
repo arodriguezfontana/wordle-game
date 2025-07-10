@@ -19,7 +19,12 @@ export const useGame = (gameSession: GameSession, onRestartToHome: () => void) =
         const validWordLenght = word.length === gameSession.wordLenght;
         const gameInProgress = status === "playing";
 
-        if (!validWordLenght || !gameInProgress) return;
+        if (!gameInProgress) return;
+        if (!validWordLenght) {
+            toast.error("Faltan letras");
+            return;
+        }
+
         setLoading(true);
 
         try {
@@ -55,7 +60,7 @@ export const useGame = (gameSession: GameSession, onRestartToHome: () => void) =
     };
 
     const closeOverlay = () => setShowOverlay(false);
-    
+
     return {
         loading,
         word,

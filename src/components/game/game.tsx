@@ -2,6 +2,7 @@ import { useGame } from "../../hooks/useGame";
 import Won from "../resultOvelay/won";
 import Lost from "../resultOvelay/lost";
 import Loading from "../loading/loading";
+import Button from "../button/button";
 import type { GameSession } from "../../types/gameSession";
 
 interface GameProperties {
@@ -64,7 +65,7 @@ const Game = ({ gameSession, onRestartToHome }: GameProperties) => {
                         onChange={(e) => setWord(e.target.value)}
                         maxLength={gameSession.wordLenght}
                     />
-                    <button onClick={handlePlay}>Enviar</button>
+                    <Button onClick={handlePlay}>Enviar</Button>
                 </div>
             )}
 

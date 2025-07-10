@@ -1,32 +1,30 @@
 import "./rules.css";
+import Button from "../button/button";
 
-interface RulesProperties {
-    
-};
+interface RulesProps {
+  onClose: () => void;
+}
 
-const Rules = ({  }: RulesProperties) => {
-    return (
-        <div>
-           
-        </div>
-    );
+const Rules = ({ onClose }: RulesProps) => {
+  return (
+    <div className="rules-overlay">
+      <div className="rules-content">
+        <h3>Reglas del Juego</h3>
+        <p>
+          Las reglas son sencillas: escribís una palabra de X letras válida (en español).
+          El juego evalúa cada letra y marca las pistas con colores.
+          Usás esas pistas para mejorar tu próximo intento.
+          Tenés 6 intentos como máximo para adivinar la palabra.
+        </p>
+        <ul>
+          <li><strong style={{ color: "green" }}>VERDE</strong>: letra en la palabra y en la posición correcta.</li>
+          <li><strong style={{ color: "yellow" }}>AMARILLO</strong>: letra en la palabra pero en la posición incorrecta.</li>
+          <li><strong style={{ color: "gray" }}>GRIS</strong>: letra no presente en la palabra.</li>
+        </ul>
+        <Button onClick={onClose}>X</Button>
+      </div>
+    </div>
+  );
 };
 
 export default Rules;
-
-{/* <h3>Reglas del Juego</h3>
-                <p>Las reglas son sencillas:
-                    Escribís una palabra de X letras válida (en español).
-                    El juego evalúa cada letra y marca las pistas con colores.
-                    Usás esas pistas para mejorar tu próximo intento.
-                    Tenés 6 intentos como máximo para adivinar la palabra.</p>
-            </div>
-            {/* 
-            Las reglas son simples: adivina la palabra oculta en 6 intentos. 
-            Cada intento debe ser una palabra validá y si la palabra no existe el juego te avisará.
-            Después de cada intento el color de las casillas cambia para mostrar qué tan cerca estás de acertar la palabra
-            
-            VERDE significa que la letra está en la palabra y en la posición CORRECTA.
-            AMARILLO significa que la letra letra está presente en la palabra pero en la posición INCORRECTA.
-            GRIS significa que la letra letra NO está presente en la palabra.
-            */}
