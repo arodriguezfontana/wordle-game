@@ -44,10 +44,6 @@ const HomePage = () => {
         }
     };
     
-    const handleStartClick = () => {
-        setStage("difficulty");
-    };
-
     const handleRulesClick = () => {
         setStage("difficulty");
     };
@@ -58,7 +54,7 @@ const HomePage = () => {
 
                 {stage === "start" && (
                         <Start
-                            onClickStart={handleStartClick}
+                            onClickStart={() => setStage("difficulty")}
                             onClickRules={handleRulesClick}
                         />
                 )}
@@ -73,6 +69,7 @@ const HomePage = () => {
                 {stage === "game" && gameSession && (
                         <Game
                             gameSession={gameSession}
+                            onRestartToHome={() => setStage("start")}
                         />
                 )}
                 

@@ -7,32 +7,41 @@ import type { LetterResult } from "../../types/letterResult";
 import type { GameStatus } from "../../types/gameStatus";
 import toast from "react-hot-toast";
 import { InvalidWordError } from "../../services/wordleErrors";
+import WonPage from "../resultPage/wonPage";
+import LostPage from "../resultPage/lostPage";
 
 interface GameProperties {
     gameSession: GameSession;
+    onRestartToHome: () => void;
 };
 
-const Game = ({ gameSession }: GameProperties) => {
+const Game = ({ gameSession, onRestartToHome }: GameProperties) => {
     const [word, setWord] = useState("");
     const [attempts, setAttempts] = useState<LetterResult[][]>([]);
     const [status, setStatus] = useState<GameStatus>("playing");
+    const [showOverlay, setShowOverlay] = useState(false);
 
     const handlePlay = async () => {
-        if (word.length !== gameSession.wordLenght || status !== "playing") return;
+        const validWordLenght = word.length === gameSession.wordLenght;
+        const gameInProgress = status === "playing";
+
+        if (!validWordLenght || !gameInProgress) return;
 
         try {
             const result = await postCheckWord(gameSession.sessionId, word.toLowerCase());
-
             if (!result) return;
 
             setAttempts([...attempts, result]);
             setWord("");
 
             const won = result.every((letter) => letter.solution === "correct");
+
             if (won) {
                 setStatus("won");
+                setShowOverlay(true);
             } else if (attempts.length + 1 >= 6) {
                 setStatus("lost");
+                setShowOverlay(true);
             }
         } catch (err) {
             if (err instanceof InvalidWordError) {
@@ -42,7 +51,14 @@ const Game = ({ gameSession }: GameProperties) => {
             }
         };
     }
-    
+
+    const handleRestart = () => {
+        setShowOverlay(false);
+        onRestartToHome();
+    };
+
+    const closeOverlay = () => setShowOverlay(false);
+
     const remainingAttempts = 6 - attempts.length;
 
     return (
@@ -79,9 +95,12 @@ const Game = ({ gameSession }: GameProperties) => {
                 </div>
             )}
 
-            {status === "won" && <p>Ganaste</p>}
-            {status === "lost" && <p>Perdiste</p>}
-
+            {showOverlay && status === "won" && (
+                <WonPage onClose={closeOverlay} onRestart={handleRestart} />
+            )}
+            {showOverlay && status === "lost" && (
+                <LostPage onClose={closeOverlay} onRestart={handleRestart} />
+            )}
         </div>
     );
 };
