@@ -45,7 +45,8 @@ export const useGame = (gameSession: GameSession, onRestartToHome: () => void) =
             }
         } catch (err) {
             if (err instanceof InvalidWordError) {
-                toast.error("La palabra no es valida")
+                toast.error("La palabra no es valida");
+                setWord("");
             } else if (isAxiosError(err)) {
                 throwCorrectError(err, "postCheckWord");
             }

@@ -1,3 +1,4 @@
+import './game.css';
 import { useGame } from "../../hooks/useGame";
 import Won from "../resultOvelay/won";
 import Lost from "../resultOvelay/lost";
@@ -53,7 +54,7 @@ const Game = ({ gameSession, onRestartToHome }: GameProperties) => {
             ))}
 
             {loading && (
-                <div style={{ marginTop: "16px" }}>
+                <div>
                     <Loading />
                 </div>
             )}
@@ -69,6 +70,9 @@ const Game = ({ gameSession, onRestartToHome }: GameProperties) => {
                 </div>
             )}
 
+            {(status === "won" || status === "lost") && (
+                <Button onClick={handleRestart}>Volver a jugar</Button>
+            )}
             {showOverlay && status === "won" && (
                 <Won onClose={closeOverlay} onRestart={handleRestart} />
             )}
