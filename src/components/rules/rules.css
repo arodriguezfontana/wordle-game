@@ -8,16 +8,23 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 1;
+  backdrop-filter: blur(4px);
 }
 
 .rules-content {
   background: white;
-  padding: 24px;
-  border-radius: 12px;
+  padding: 30px 35px;
+  border-radius: 16px;
   width: 90%;
   max-width: 500px;
-  color: #222;
+  line-height: 1.6;
+  color: #444;
+}
+
+.rules-title {
+  font-size: 1.5rem;
+  color: #111;
 }
 
 .color-rules {
@@ -30,4 +37,16 @@
 
 .color-rules li {
   margin-bottom: 5px;
+}
+
+.green-text {
+  color: var(--green-correct);
+}
+
+.yellow-text {
+  color: var(--yellow-elsewhere);
+}
+
+.gray-text {
+  color: var(--grey-absent);
 }

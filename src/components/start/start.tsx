@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Button from "../button/button";
 import Rules from "../rules/rules";
+import "./Start.css";
 
 interface StartProperties {
   onClickStart: () => void;
@@ -11,13 +12,14 @@ const Start = ({ onClickStart }: StartProperties) => {
 
   return (
     <div>
-      <Button onClick={() => setShowRules(true)} color={"red"}>
-        Reglas del juego
-      </Button>
-      <Button onClick={onClickStart} color={"green"}>
-        Empezar a jugar
-      </Button>
-
+      <div className="start-buttons">
+        <Button onClick={() => setShowRules(true)} border={true}>
+          Reglas del juego
+        </Button>
+        <Button onClick={onClickStart}>
+          Empezar a jugar
+        </Button>
+      </div>
       {showRules && <Rules onClose={() => setShowRules(false)} />}
     </div>
   );

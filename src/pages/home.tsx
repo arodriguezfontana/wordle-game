@@ -22,7 +22,6 @@ const Home = () => {
                 {stage === "start" && (
                     <Start
                         onClickStart={goToDifficulty}
-                        onClickRules={goToDifficulty}
                     />
                 )}
 

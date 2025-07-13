@@ -8,9 +8,9 @@ interface H1SectionProperties {
 
 const H1Section = ({ children, title } : H1SectionProperties ) => {
   return (
-      <div className="wordle-section-container">
+      <div className="h1-section-container">
         <article>
-          <h1>{title}</h1>
+          <h1 className="h1-title">{title}</h1>
           {children}
         </article>
       </div>

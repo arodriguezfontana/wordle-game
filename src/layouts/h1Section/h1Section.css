@@ -1,8 +1,12 @@
-.wordle-section-container {
-    margin: 0 80px;
+.h1-section-container {
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     height: 100vh;
+}
+
+.h1-title {
+  color: rgb(0, 0, 0);
+  font-size: 3rem;
 }
