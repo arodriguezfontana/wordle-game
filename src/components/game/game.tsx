@@ -4,17 +4,17 @@ import Won from "../resultOvelay/won";
 import Lost from "../resultOvelay/lost";
 import Loading from "../loading/loading";
 import Button from "../button/button";
+import H3Section from '../../layouts/h3Section/h3Section';
 import type { GameSession } from "../../types/gameSession";
 
 interface GameProperties {
     gameSession: GameSession;
     onRestartToHome: () => void;
-};
+}
 
 const Game = ({ gameSession, onRestartToHome }: GameProperties) => {
     const {
         word,
-        setWord,
         attempts,
         status,
         showOverlay,
@@ -22,63 +22,69 @@ const Game = ({ gameSession, onRestartToHome }: GameProperties) => {
         handlePlay,
         handleRestart,
         closeOverlay,
+        handleLetterChange,
+        handleKeyDown,
+        inputRefs
     } = useGame(gameSession, onRestartToHome);
 
     return (
         <div>
-            <h3>Partida</h3>
-            <h4>Dificultad: {gameSession.difficulty.name}</h4>
-            <h4>Largo de la palabra: {gameSession.wordLenght}</h4>
+            <H3Section title='Partida'>
 
-            {attempts.map((a, i) => (
-                <div key={i} style={{ display: "flex", gap: 4 }}>
-                    {a.map((l, i2) => (
-                        <span
-                            key={i2}
-                            style={{
-                                backgroundColor:
-                                    l.solution === "correct"
-                                        ? "green"
-                                        : l.solution === "elsewhere"
-                                            ? "gold"
-                                            : "lightgray",
-                                color: "white",
-                                padding: "4px 8px",
-                                borderRadius: "4px",
-                            }}
-                        >
-                            {l.letter}
-                        </span>
-                    ))}
+                {attempts.map((a, i) => (
+                    <div key={i} className="attempt-row">
+                        {a.map((l, i2) => (
+                            <span
+                                key={i2}
+                                className={`letter-box ${l.solution}`}
+                            >
+                                {l.letter}
+                            </span>
+                        ))}
+                    </div>
+                ))}
+
+                {status === "playing" && (
+                    <>
+                        <div className="input-row">
+                            {Array.from({ length: gameSession.wordLenght }).map((_, i) => (
+                                <input
+                                    key={i}
+                                    ref={(el) => { inputRefs.current[i] = el; }}
+                                    value={word[i] || ""}
+                                    onChange={(e) => handleLetterChange(e, i)}
+                                    onKeyDown={(e) => handleKeyDown(e, i)}
+                                    maxLength={1}
+                                    className="input-box"
+                                />
+                            ))}
+                        </div>
+
+                        {loading && (
+                            <div className="loading-wrapper">
+                                <Loading />
+                            </div>
+                        )}
+
+                        <div className="button-wrapper">
+                            <Button onClick={handlePlay} border={false}>Enviar</Button>
+                        </div>
+                    </>
+                )}
+
+                <div className='play-button-container'>
+                    {(status === "won" || status === "lost") && (
+                        <Button onClick={handleRestart} border={false}>Volver a jugar</Button>
+                    )}
                 </div>
-            ))}
 
-            {loading && (
-                <div>
-                    <Loading />
-                </div>
-            )}
-
-            {status === "playing" && (
-                <div>
-                    <input
-                        value={word}
-                        onChange={(e) => setWord(e.target.value)}
-                        maxLength={gameSession.wordLenght}
-                    />
-                    <Button onClick={handlePlay}>Enviar</Button>
-                </div>
-            )}
-
-            {(status === "won" || status === "lost") && (
-                <Button onClick={handleRestart}>Volver a jugar</Button>
-            )}
-            {showOverlay && status === "won" && (
-                <Won onClose={closeOverlay} onRestart={handleRestart} />
-            )}
-            {showOverlay && status === "lost" && (
-                <Lost onClose={closeOverlay} onRestart={handleRestart} />
-            )}
+                {showOverlay && status === "won" && (
+                    <Won onClose={closeOverlay} onRestart={handleRestart} attempts={attempts.length} />
+                )}
+                {showOverlay && status === "lost" && (
+                    <Lost onClose={closeOverlay} onRestart={handleRestart} />
+                )}
+            </H3Section >
         </div>
     );
 };

@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
+import type { GameSession } from "../types/gameSession";
+import type { LetterResult } from "../types/letterResult";
+import type { GameStatus } from "../types/gameStatus";
 import { postCheckWord } from "../services/wordleService";
 import { isAxiosError } from "axios";
 import { throwCorrectError } from "../services/throwCorrectError";
 import { InvalidWordError } from "../services/wordleErrors";
 import toast from "react-hot-toast";
-import type { GameSession } from "../types/gameSession";
-import type { LetterResult } from "../types/letterResult";
-import type { GameStatus } from "../types/gameStatus";
+
+const VALID_LETTER_REGEX = /^[A-ZÑ]?$/;
+const MAX_ATTEMPTS = 6;
 
 export const useGame = (gameSession: GameSession, onRestartToHome: () => void) => {
     const [word, setWord] = useState("");
@@ -15,23 +18,23 @@ export const useGame = (gameSession: GameSession, onRestartToHome: () => void) =
     const [showOverlay, setShowOverlay] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const handlePlay = async () => {
-        const validWordLenght = word.length === gameSession.wordLenght;
-        const gameInProgress = status === "playing";
+    const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
-        if (!gameInProgress) return;
-        if (!validWordLenght) {
+    const handlePlay = useCallback(async () => {
+        if (status !== "playing") return;
+
+        if (word.length !== gameSession.wordLenght) {
             toast.error("Faltan letras");
             return;
         }
 
         setLoading(true);
-
         try {
             const result = await postCheckWord(gameSession.sessionId, word.toLowerCase());
             if (!result) return;
 
-            setAttempts([...attempts, result]);
+            const newAttempts = [...attempts, result];
+            setAttempts(newAttempts);
             setWord("");
 
             const won = result.every((letter) => letter.solution === "correct");
@@ -39,28 +42,72 @@ export const useGame = (gameSession: GameSession, onRestartToHome: () => void) =
             if (won) {
                 setStatus("won");
                 setShowOverlay(true);
-            } else if (attempts.length + 1 >= 6) {
+            } else if (newAttempts.length >= MAX_ATTEMPTS) {
                 setStatus("lost");
                 setShowOverlay(true);
             }
         } catch (err) {
             if (err instanceof InvalidWordError) {
-                toast.error("La palabra no es valida");
+                toast.error("La palabra no es válida");
                 setWord("");
             } else if (isAxiosError(err)) {
                 throwCorrectError(err, "postCheckWord");
             }
         } finally {
             setLoading(false);
-        };
-    };
+        }
+    }, [status, word, gameSession, attempts]);
 
-    const handleRestart = () => {
+    const handleRestart = useCallback(() => {
         setShowOverlay(false);
         onRestartToHome();
-    };
+    }, [onRestartToHome]);
 
-    const closeOverlay = () => setShowOverlay(false);
+    const closeOverlay = useCallback(() => {
+        setShowOverlay(false);
+    }, []);
+
+    useEffect(() => {
+        const firstEmptyIndex = word.length;
+        if (status === "playing" && inputRefs.current[firstEmptyIndex]) {
+            inputRefs.current[firstEmptyIndex]?.focus();
+        }
+    }, [word, status]);
+
+    const handleLetterChange = useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+            const val = e.target.value.toUpperCase();
+            if (!VALID_LETTER_REGEX.test(val)) return;
+
+            const newWord = word.split("");
+            newWord[index] = val;
+            setWord(newWord.join("").slice(0, gameSession.wordLenght));
+
+            if (val && index < gameSession.wordLenght - 1) {
+                inputRefs.current[index + 1]?.focus();
+            }
+        },
+        [word, gameSession.wordLenght]
+    );
+
+    const handleKeyDown = useCallback(
+        (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
+            const newWord = word.split("");
+
+            if (e.key === "Backspace") {
+                if (word[index]) {
+                    newWord[index] = "";
+                } else if (index > 0) {
+                    newWord[index - 1] = "";
+                    inputRefs.current[index - 1]?.focus();
+                }
+                setWord(newWord.join(""));
+            } else if (e.key === "Enter" && word.length === gameSession.wordLenght) {
+                handlePlay();
+            }
+        },
+        [word, gameSession.wordLenght, handlePlay]
+    );
 
     return {
         loading,
@@ -71,6 +118,9 @@ export const useGame = (gameSession: GameSession, onRestartToHome: () => void) =
         showOverlay,
         handlePlay,
         handleRestart,
-        closeOverlay
+        closeOverlay,
+        handleLetterChange,
+        handleKeyDown,
+        inputRefs
     };
 };

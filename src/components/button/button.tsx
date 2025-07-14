@@ -1,19 +1,20 @@
 import './button.css';
 import React from "react";
+import { useButton } from "../../hooks/useButton";
 
 interface ButtonProperties {
   onClick: () => void;
   children: React.ReactNode;
   color?: string;
-  border?: boolean;
+  border: boolean;
 }
 
 const Button: React.FC<ButtonProperties> = ({ onClick, children, color = "black", border }) => {
-  const style = border
-    ? { backgroundColor: "white", border: "2px solid black", color: "black" }
-    : { backgroundColor: color, border: "none", color: "white" };
-    
-return (
+  const {
+         style
+      } = useButton (border, color);
+
+  return (
     <button
       onClick={onClick}
       className="button"

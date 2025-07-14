@@ -16,9 +16,9 @@ const Rules = ({ onClose }: RulesProps) => {
           Son 6 intentos como máximo para adivinar la palabra.
         </p>
         <ul className="color-rules">
-          <li><strong className="green-text">VERDE</strong>: en la palabra y en la posición correcta.</li>
-          <li><strong className="yellow-text">AMARILLO</strong>: en la palabra pero en la posición incorrecta.</li>
-          <li><strong className="gray-text">GRIS</strong>: no presente en la palabra.</li>
+          <li><strong style={{ color: '#22c55e' }}>VERDE</strong>: en la palabra y en la posición correcta.</li>
+          <li><strong style={{ color: '#facc15' }}>AMARILLO</strong>: en la palabra pero en la posición incorrecta.</li>
+          <li><strong style={{ color: '#6b7280' }}>GRIS</strong>: no presente en la palabra.</li>
         </ul>
         <Button onClick={onClose} border={true}>x</Button>
       </div>

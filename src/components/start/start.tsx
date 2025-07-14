@@ -16,7 +16,7 @@ const Start = ({ onClickStart }: StartProperties) => {
         <Button onClick={() => setShowRules(true)} border={true}>
           Reglas del juego
         </Button>
-        <Button onClick={onClickStart}>
+        <Button onClick={onClickStart} border={false}>
           Empezar a jugar
         </Button>
       </div>

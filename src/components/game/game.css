@@ -1,0 +1,67 @@
+.attempt-row {
+    margin-left: 5px;
+    display: flex;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.letter-box {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    width: 46.5px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: white;
+    border-radius: 4px;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+.letter-box.correct {
+    background-color: #22c55e;
+}
+
+.letter-box.elsewhere {
+    background-color: #facc15;
+}
+
+.letter-box.absent {
+    background-color: #8b8b8b;
+}
+
+.input-row {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 12px;
+    justify-content: center;
+}
+
+.input-box {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: bold;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+}
+
+.button-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+}
+
+.loading-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80px;
+}
+
+.play-button-container {
+    margin-top: 35px;
+}

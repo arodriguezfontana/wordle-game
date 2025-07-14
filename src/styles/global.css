@@ -1,20 +1,9 @@
-:root {
-  --green-correct: #22c55e; 
-  --yellow-elsewhere: #facc15;
-  --grey-absent: #6b7280;
-}
-
 body {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #f1f5f9, #dbeafe);
-    background-image: radial-gradient(#e2e8f0 1.6px, transparent 1px);
-    background-size: 20px 20px;
+  background-image: radial-gradient(#e4e4e4 1.75px, transparent 1px);
+  background-size: 20px 20px;
 }
 
 html, body, #root {
-  height: 100vh;
   margin: 0;
-  padding: 0;
-  overflow: hidden;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
