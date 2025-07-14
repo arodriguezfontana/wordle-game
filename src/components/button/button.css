@@ -1,0 +1,15 @@
+.button {
+  flex: 1;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 100px;
+  font-size: 16px;
+  transition: transform 0.2s linear;
+}
+
+.button:hover {
+  transform: scale(1.06);
+  filter: brightness(110%);
+  cursor: pointer;
+}

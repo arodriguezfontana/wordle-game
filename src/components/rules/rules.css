@@ -1,0 +1,42 @@
+.rules-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.rules-content {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 450px;
+  line-height: 1.5;
+  font-size: 0.874rem;
+  color: #444;
+  margin: 15px;
+}
+
+.rules-title {
+  font-size: 1.5rem;
+  color: #111;
+}
+
+.color-rules {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 0;
+}
+
+.color-rules li {
+  margin-bottom: 5px;
+}

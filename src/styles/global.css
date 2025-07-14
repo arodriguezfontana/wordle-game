@@ -1,0 +1,9 @@
+body {
+  background-image: radial-gradient(#e4e4e4 1.75px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+html, body, #root {
+  margin: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}

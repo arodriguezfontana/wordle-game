@@ -1,0 +1,1 @@
+export type Stage = "start" | "difficulty" | "game";
