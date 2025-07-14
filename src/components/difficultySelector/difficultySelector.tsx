@@ -8,9 +8,10 @@ interface DifficultySelectorProperties {
   difficulties: Difficulty[];
   onSelect: (difficulty: Difficulty) => void;
   loading: boolean;
+  goBack: () => void;
 }
 
-const DifficultySelector = ({ difficulties, onSelect, loading }: DifficultySelectorProperties) => {
+const DifficultySelector = ({ difficulties, onSelect, loading, goBack }: DifficultySelectorProperties) => {
   return (
     <div className="difficulty-selector-container">
       <H3Section title='Seleccioná la dificultad'>
@@ -33,6 +34,9 @@ const DifficultySelector = ({ difficulties, onSelect, loading }: DifficultySelec
             })}
           </ul>
         )}
+        <div className='back-button'>
+          <Button onClick={goBack} border={true}>Ir atras</Button>
+        </div>
       </H3Section>
     </div>
   );

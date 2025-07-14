@@ -10,9 +10,10 @@ import type { GameSession } from "../../types/gameSession";
 interface GameProperties {
     gameSession: GameSession;
     onRestartToHome: () => void;
+    goBack: () => void;
 }
 
-const Game = ({ gameSession, onRestartToHome }: GameProperties) => {
+const Game = ({ gameSession, onRestartToHome, goBack }: GameProperties) => {
     const {
         word,
         attempts,
@@ -68,6 +69,10 @@ const Game = ({ gameSession, onRestartToHome }: GameProperties) => {
 
                         <div className="button-wrapper">
                             <Button onClick={handlePlay} border={false}>Enviar</Button>
+                        </div>
+
+                        <div className='back-button'>
+                            <Button onClick={goBack} border={true}>Ir atras</Button>
                         </div>
                     </>
                 )}

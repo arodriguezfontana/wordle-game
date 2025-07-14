@@ -30,6 +30,7 @@ const Home = () => {
                         difficulties={difficulties}
                         onSelect={handleDifficultySelection}
                         loading={loading}
+                        goBack={goToStart}
                     />
                 )}
 
@@ -37,6 +38,7 @@ const Home = () => {
                     <Game
                         gameSession={gameSession}
                         onRestartToHome={goToStart}
+                        goBack={goToDifficulty}
                     />
                 )}
 
