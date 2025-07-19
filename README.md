@@ -1,28 +1,23 @@
-# Trabajo Integrador | Wordle
+# Wordle
+
+Este repositorio contiene el proyecto de un juego tipo Wordle implementado con React y TypeScript, respetando las reglas clásicas del juego.
+<br/><br/>
+Integra una API para gestionar sesiones, validar palabras y seleccionar entre distintos niveles de dificultad.
+El diseño se centró en lograr una interfaz intuitiva y moderna, con funcionalidades como la visualización de reglas, selección de dificultad, posibilidad de jugar partidas completas y una presentación clara de los resultados.
 
 ### ¿Cómo descargar y ejecutar el proyecto?
 
-**Clona el repositorio:**
+**Descargar**
 
 ```bash
-git clone https://github.com/arodriguezfontana/unq-ui-abril-rodriguez-trabajo-final.git
-```
-
-**Accede a la carpeta del proyecto:**
-
-```bash
-cd unq-ui-abril-rodriguez-trabajo-final
-```
-
-**Instala las dependencias necesarias:**
-
-```bash
+git clone https://github.com/arodriguezfontana/wordle.git
+cd wordle
 npm install
 ```
 
-**Ejecuta el proyecto:**
+**Ejecutar**
 ```bash
 npm run dev
 ```
 
-**Abre tu navegador y accede a la URL donde se este ejecutando el proyecto (probablemente sea en [localhost:5173](http://localhost:5173/)).**
+**Abrir en el navegador y acceder a la URL donde se este ejecutando el proyecto.**
