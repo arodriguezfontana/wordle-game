@@ -4,12 +4,6 @@ Aplicación web interactiva inspirada en el juego Wordle, replicando sus reglas 
 
 Desarollada en React y consumiendo una API REST externa para gestionar sesiones, validar palabras y seleccionar entre distintos niveles de dificultad con un diseño que se centró en ofrecer una interfaz atractiva, intuitiva y responsive.
 
-### Tecnologías utilizadas
-* React
-* TypeScript
-* CSS
-* HTML
-
 ### Funcionalidades principales
 * Selección de niveles de dificultad
 * Validación de palabras
@@ -18,19 +12,17 @@ Desarollada en React y consumiendo una API REST externa para gestionar sesiones,
 * Interfaz optimizada para experiencia de usuario
 * Lógica para determinar victoria o derrota
 
-### ¿Cómo descargar y ejecutar el proyecto?
+### Tecnologías utilizadas
+* React
+* TypeScript
+* CSS
+* HTML
 
-**1. Descargar:**
+### ¿Cómo descargar y ejecutar el proyecto?
 
 ```bash
 git clone https://github.com/arodriguezfontana/wordle.git
 cd wordle
 npm install
-```
-
-**2. Ejecutar:**
-```bash
 npm run dev
 ```
-
-**3. Abrir en el navegador y acceder a la URL donde se este ejecutando el proyecto.**
