@@ -1,15 +1,22 @@
-# Wordle
+# Wordle – Juego web de adivinanza de palabras
 
-Este proyecto consiste en un juego inspirado en Wordle, respetando las reglas clásicas del juego.
+Aplicación web interactiva inspirada en el juego Wordle, replicando sus reglas clasicas y dinámicas principales.
 
-Integra una API para gestionar sesiones, validar palabras y seleccionar entre distintos niveles de dificultad.
-El diseño se centró en lograr una interfaz moderna e intuitiva, con funcionalidades como la visualización de reglas, selección de dificultad, partidas completas y presentación clara de resultados.
+Desarollada en React y consumiendo una API REST externa para gestionar sesiones, validar palabras y seleccionar entre distintos niveles de dificultad con un diseño que se centró en ofrecer una interfaz atractiva, intuitiva y responsive.
 
-### Tecnologías
-* TypeScript
+### Tecnologías utilizadas
 * React
+* TypeScript
 * CSS
 * HTML
+
+### Funcionalidades principales
+* Selección de niveles de dificultad
+* Validación de palabras
+* Feedback visual en tiempo real
+* Manejo de múltiples partidas
+* Interfaz optimizada para experiencia de usuario
+* Lógica para determinar victoria o derrota
 
 ### ¿Cómo descargar y ejecutar el proyecto?
 
