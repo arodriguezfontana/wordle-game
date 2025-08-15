@@ -18,7 +18,14 @@ export class SessionNotFoundError extends WordleError {
 
 export class ServerError extends WordleError {
   constructor() {
-    super(`Error del servidor.`);
+    super("Error del servidor.");
+  }
+}
+
+// Manjos de errores de la api, enn este caso, que la api este caida.
+export class ApiDownError extends WordleError {
+  constructor() {
+    super("El servidor no responde.");
   }
 }
 

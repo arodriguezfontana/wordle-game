@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import type { GameSession } from "../types/gameSession";
 import type { LetterResult } from "../types/letterResult";
 import type { GameStatus } from "../types/gameStatus";
@@ -19,8 +19,8 @@ export const useGame = (gameSession: GameSession, onRestartToHome: () => void) =
     const [loading, setLoading] = useState(false);
 
     const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-
-    const handlePlay = useCallback(async () => {
+    
+    const handlePlay = async () => {
         if (status !== "playing") return;
 
         if (word.length !== gameSession.wordLenght) {
@@ -56,16 +56,16 @@ export const useGame = (gameSession: GameSession, onRestartToHome: () => void) =
         } finally {
             setLoading(false);
         }
-    }, [status, word, gameSession, attempts]);
+    };
 
-    const handleRestart = useCallback(() => {
+    const handleRestart = () => {
         setShowOverlay(false);
         onRestartToHome();
-    }, [onRestartToHome]);
+    };
 
-    const closeOverlay = useCallback(() => {
+    const closeOverlay = () => {
         setShowOverlay(false);
-    }, []);
+    };
 
     useEffect(() => {
         const firstEmptyIndex = word.length;
@@ -74,40 +74,34 @@ export const useGame = (gameSession: GameSession, onRestartToHome: () => void) =
         }
     }, [word, status]);
 
-    const handleLetterChange = useCallback(
-        (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
-            const val = e.target.value.toUpperCase();
-            if (!VALID_LETTER_REGEX.test(val)) return;
+    const handleLetterChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+        const val = e.target.value.toUpperCase();
+        if (!VALID_LETTER_REGEX.test(val)) return;
 
-            const newWord = word.split("");
-            newWord[index] = val;
-            setWord(newWord.join("").slice(0, gameSession.wordLenght));
+        const newWord = word.split("");
+        newWord[index] = val;
+        setWord(newWord.join("").slice(0, gameSession.wordLenght));
 
-            if (val && index < gameSession.wordLenght - 1) {
-                inputRefs.current[index + 1]?.focus();
+        if (val && index < gameSession.wordLenght - 1) {
+            inputRefs.current[index + 1]?.focus();
+        }
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
+        const newWord = word.split("");
+
+        if (e.key === "Backspace") {
+            if (word[index]) {
+                newWord[index] = "";
+            } else if (index > 0) {
+                newWord[index - 1] = "";
+                inputRefs.current[index - 1]?.focus();
             }
-        },
-        [word, gameSession.wordLenght]
-    );
-
-    const handleKeyDown = useCallback(
-        (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
-            const newWord = word.split("");
-
-            if (e.key === "Backspace") {
-                if (word[index]) {
-                    newWord[index] = "";
-                } else if (index > 0) {
-                    newWord[index - 1] = "";
-                    inputRefs.current[index - 1]?.focus();
-                }
-                setWord(newWord.join(""));
-            } else if (e.key === "Enter" && word.length === gameSession.wordLenght) {
-                handlePlay();
-            }
-        },
-        [word, gameSession.wordLenght, handlePlay]
-    );
+            setWord(newWord.join(""));
+        } else if (e.key === "Enter" && word.length === gameSession.wordLenght) {
+            handlePlay();
+        }
+    };
 
     return {
         loading,

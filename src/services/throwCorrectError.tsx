@@ -1,10 +1,15 @@
 import { AxiosError } from "axios";
-import { InvalidWordError, SessionNotFoundError, ServerError, UnknownError } from "./wordleErrors";
+import { InvalidWordError, SessionNotFoundError, ServerError, UnknownError, ApiDownError } from "./wordleErrors";
 
 export const throwCorrectError = (
     error: AxiosError,
     context: "getDifficulties" | "getSession" | "postCheckWord" ): never => {
-    const status = error.response?.status;
+    
+    if (!error.response) {
+        throw new ApiDownError();
+    }
+    
+    const status = error.response.status;
 
     switch (context) {
         case "getDifficulties":
