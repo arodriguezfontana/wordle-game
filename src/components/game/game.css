@@ -65,3 +65,39 @@
 .play-button-container {
     margin-top: 35px;
 }
+
+@media (max-width: 420px) {
+    .letter-box {
+        width: 34px;
+        height: 32px;
+        font-size: 16px;
+    }
+
+    .input-box {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+    }
+
+    .button-wrapper .button,
+    .play-button-container .button {
+        width: 100%;      
+        max-width: 260px;  
+        font-size: 14px;   
+        padding: 8px 12px; 
+    }
+
+    .attempt-row {
+        gap: 3px;
+        margin-left: 2px;
+    }
+
+    .input-row {
+        gap: 2px;
+        margin-bottom: 8px;
+    }
+
+    .play-button-container {
+        margin-top: 20px;
+    }
+}
