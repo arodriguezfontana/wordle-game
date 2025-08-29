@@ -5,13 +5,13 @@ Se desarrolló en **React** y **Typescript**, consumiendo una **API REST** exter
 
 ### Funcionalidades principales
 - Conexión con la API para gestionar sesiones, niveles de dificultad y validar palabras.
-- Selección de niveles de dificultad
-- Feedback visual de la validación de palabras en tiempo real
-- Manejo de múltiples partidas
-- Lógica para determinar victoria o derrota
-- Loading mientras la API carga
-- Manejo de errores con notificacion si la palabra no es válida
-- Interfaz intuitiva y responsive
+- Selección de niveles de dificultad.
+- Feedback visual de la validación de palabras en tiempo real.
+- Manejo de múltiples partidas.
+- Lógica para determinar victoria o derrota.
+- Loading mientras la API carga.
+- Manejo de errores con notificacion si la palabra no es válida.
+- Interfaz intuitiva y responsive.
 
 ### Tecnologías utilizadas
 - React
